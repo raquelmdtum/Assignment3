@@ -35,11 +35,17 @@ simulations <- replicate(num_sim, generate_ar2(n, phi1, phi2, sigma_e))
 sim_df <- data.frame(time = 1:n, as.data.frame(simulations))
 sim_df <- pivot_longer(sim_df, cols = -time, names_to = "simulation", values_to = "value")
 
-# Plot the simulations
+# Improved plot
 plot1 <- ggplot(sim_df, aes(x = time, y = value, color = simulation)) +
-  geom_line() +
-  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +
-  theme_minimal()
+  geom_line(size = 0.5, alpha = 0.8) +  # Thinner lines and slight transparency
+  scale_color_manual(values = c("black", "blue", "red", "green", "cyan")) +  # Custom colors
+  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +  # Clean axis labels
+  theme_classic(base_size = 14) +  # Simple and elegant theme
+  theme(
+    legend.position = "none",  # Remove legend for a cleaner look
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14)
+  )
 
 # Save the first plot
 ggsave("Figures/1.1_plot.pdf", plot = plot1, width = 10, height = 5, dpi = 300)
@@ -49,40 +55,9 @@ ggsave("Figures/1.1_plot.pdf", plot = plot1, width = 10, height = 5, dpi = 300)
 # Number of lags
 lag_max <- 30
 
-# Step 1: Compute empirical ACFs for each simulation
-acf_list <- lapply(1:num_sim, function(i) {
-  acf(simulations[, i], lag.max = lag_max, plot = FALSE)
-})
 
-# Step 2: Convert each ACF result into a dataframe
-empirical_acf_df <- do.call(rbind, lapply(1:num_sim, function(i) {
-  data.frame(
-    lag = acf_list[[i]]$lag[, 1, 1],
-    acf = acf_list[[i]]$acf[, 1, 1],
-    simulation = paste0("Sim ", i)
-  )
-}))
 
-# Step 3: Get the theoretical ACF using ARMAacf
-theoretical_acf <- ARMAacf(ar = phi, ma = numeric(0), lag.max = lag_max)
-theoretical_df <- data.frame(
-  lag = 0:lag_max,
-  acf = theoretical_acf,
-  simulation = "Theoretical"
-)
-
-# Step 4: Combine data
-acf_combined_df <- rbind(empirical_acf_df, theoretical_df)
-
-# Step 5: Plot
-plot_acf_combined <- ggplot(acf_combined_df, aes(x = lag, y = acf, color = simulation)) +
-  geom_line() +
-  geom_point(size = 1) +
-  labs(title = "Empirical ACFs of 5 Simulations vs Theoretical ACF",
-       x = "Lag", y = "ACF") +
-  theme_minimal()
-
-ggsave("Figures/1.2_empirical_vs_theoretical_acf.pdf", plot = plot_acf_combined, width = 10, height = 5, dpi = 300)
+#ggsave("Figures/1.2_empirical_vs_theoretical_acf.pdf", plot = plot_acf_combined, width = 10, height = 5, dpi = 300)
 
 # ------- Exercise 1.3 ---------
 
@@ -112,12 +87,17 @@ simulations <- replicate(num_sim, generate_ar2(n, phi1, phi2, sigma_e))
 sim_df <- data.frame(time = 1:n, as.data.frame(simulations))
 sim_df <- pivot_longer(sim_df, cols = -time, names_to = "simulation", values_to = "value")
 
-# Plot the simulations
+# Improved plot
 plot1 <- ggplot(sim_df, aes(x = time, y = value, color = simulation)) +
-  geom_line() +
-  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +
-  theme_minimal()
-
+  geom_line(size = 0.5, alpha = 0.8) +  # Thinner lines and slight transparency
+  scale_color_manual(values = c("black", "blue", "red", "green", "cyan")) +  # Custom colors
+  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +  # Clean axis labels
+  theme_classic(base_size = 14) +  # Simple and elegant theme
+  theme(
+    legend.position = "none",  # Remove legend for a cleaner look
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14)
+  )
 # Save the first plot
 ggsave("Figures/1.3_plot.pdf", plot = plot1, width = 10, height = 5, dpi = 300)
 
@@ -149,11 +129,17 @@ simulations <- replicate(num_sim, generate_ar2(n, phi1, phi2, sigma_e))
 sim_df <- data.frame(time = 1:n, as.data.frame(simulations))
 sim_df <- pivot_longer(sim_df, cols = -time, names_to = "simulation", values_to = "value")
 
-# Plot the simulations
+# Improved plot
 plot1 <- ggplot(sim_df, aes(x = time, y = value, color = simulation)) +
-  geom_line() +
-  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +
-  theme_minimal()
+  geom_line(size = 0.5, alpha = 0.8) +  # Thinner lines and slight transparency
+  scale_color_manual(values = c("black", "blue", "red", "green", "cyan")) +  # Custom colors
+  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +  # Clean axis labels
+  theme_classic(base_size = 14) +  # Simple and elegant theme
+  theme(
+    legend.position = "none",  # Remove legend for a cleaner look
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14)
+  )
 
 # Save the first plot
 ggsave("Figures/1.4_plot.pdf", plot = plot1, width = 10, height = 5, dpi = 300)
@@ -186,11 +172,17 @@ simulations <- replicate(num_sim, generate_ar2(n, phi1, phi2, sigma_e))
 sim_df <- data.frame(time = 1:n, as.data.frame(simulations))
 sim_df <- pivot_longer(sim_df, cols = -time, names_to = "simulation", values_to = "value")
 
-# Plot the simulations
+# Improved plot
 plot1 <- ggplot(sim_df, aes(x = time, y = value, color = simulation)) +
-  geom_line() +
-  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +
-  theme_minimal()
+  geom_line(size = 0.5, alpha = 0.8) +  # Thinner lines and slight transparency
+  scale_color_manual(values = c("black", "blue", "red", "green", "cyan")) +  # Custom colors
+  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +  # Clean axis labels
+  theme_classic(base_size = 14) +  # Simple and elegant theme
+  theme(
+    legend.position = "none",  # Remove legend for a cleaner look
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14)
+  )
 
 # Save the first plot
 ggsave("Figures/1.5_plot.pdf", plot = plot1, width = 10, height = 5, dpi = 300)
@@ -223,11 +215,17 @@ simulations <- replicate(num_sim, generate_ar2(n, phi1, phi2, sigma_e))
 sim_df <- data.frame(time = 1:n, as.data.frame(simulations))
 sim_df <- pivot_longer(sim_df, cols = -time, names_to = "simulation", values_to = "value")
 
-# Plot the simulations
+# Improved plot
 plot1 <- ggplot(sim_df, aes(x = time, y = value, color = simulation)) +
-  geom_line() +
-  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +
-  theme_minimal()
+  geom_line(size = 0.5, alpha = 0.8) +  # Thinner lines and slight transparency
+  scale_color_manual(values = c("black", "blue", "red", "green", "cyan")) +  # Custom colors
+  labs(title = "Simulations of AR(2) Process", x = "Time", y = "X_t") +  # Clean axis labels
+  theme_classic(base_size = 14) +  # Simple and elegant theme
+  theme(
+    legend.position = "none",  # Remove legend for a cleaner look
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14)
+  )
 
 # Save the first plot
 ggsave("Figures/1.6_plot.pdf", plot = plot1, width = 10, height = 5, dpi = 300)
